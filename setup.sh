@@ -87,11 +87,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
-# Install Home Manager using Flakes
+# Install Home Manager using Flakes and ensure it's in the profile
 echo "Checking for Home Manager installation..."
 if ! command -v home-manager &> /dev/null; then
     echo "Home Manager not found. Installing Home Manager using Flakes..."
-    nix shell nixpkgs#home-manager --command home-manager init
+    nix profile install nixpkgs#home-manager
     if [ $? -eq 0 ]; then
         echo "Home Manager installed successfully."
     else
@@ -106,6 +106,16 @@ fi
 echo "Sourcing shell configurations..."
 source ~/.zshrc
 source ~/.bashrc
+
+# Log Versions for Nix and Home Manager
+echo "============================"
+echo "Version Information:"
+echo "============================"
+echo -n "Nix Version: "
+nix --version
+echo -n "Home Manager Version: "
+home-manager --version
+echo "============================"
 
 echo "Setup script completed successfully."
 

@@ -26,6 +26,18 @@
           configuration = ./system/mac/work.nix;
         };
       };
+
+      homeConfigurations = {
+        personal = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { inherit system; };
+          homeDirectory = "/Users/btanguay";
+          stateVersion = "24.11-pre";  # Update as needed
+          modules = [
+            ./apps/collection/personal.nix
+            ./variables/environment/personal.nix
+          ];
+        };
+      };
     };
 }
 
